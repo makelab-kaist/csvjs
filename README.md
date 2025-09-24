@@ -1,6 +1,6 @@
 # make::lab csv utilities
 
-Make it easy to parse csv files, extract columns and rows, and transfor the data to numbers/strings/booleans.
+Make it easy to parse CSV files, extract columns and rows, and transform the data to numbers, strings, or booleans.
 
 ## Usage
 
