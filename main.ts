@@ -96,11 +96,15 @@ export const getColumnByName =
   };
 
 // Transformations
+/** Zod schemas to transform values to floats */
 export const floats: z.ZodTransform<number, string> = z.transform(parseFloat);
+/** Zod schemas to transform values to integers */
 export const integers: z.ZodTransform<number, string> = z.transform(
   (str: string) => parseInt(str, 10)
 );
+/** Zod schemas to transform values to booleans */
 export const booleans: z.ZodTransform<boolean, unknown> = z.transform(Boolean);
+/** Zod schemas to transform values to strings */
 export const strings: z.ZodTransform<string, string> = z.transform(String);
 
 /**
