@@ -1,9 +1,9 @@
-# make::lab csv utilities
-
-Make it easy to parse csv files, extract columns and rows.
-
-```js
 import {
+  Data,
+  Value,
+  Row,
+  Column,
+  RowCol,
   getData,
   columnByName,
   columns,
@@ -15,9 +15,12 @@ import {
   integers,
   booleans,
   strings,
+  transform,
+  header,
+  values,
 } from '@makelab/csv';
 
-await getData('data1.csv')
+await getData('example_data.csv')
   .then(columns)
   .then(columnByName('C'))
   .then(transform(floats))
@@ -27,11 +30,10 @@ await getData('data1.csv')
   .then(values) // extract the array of values
   .then(console.log);
 
-await getData('data1.csv')
+await getData('example_data.csv')
   .then(rows)
   .then(rowByIndex(2))
   .then(tap)
   .then(choose)
   .then(values) // get the values
   .then(console.log);
-```

@@ -1,22 +1,22 @@
 // deno-lint-ignore-file no-explicit-any
-import { parse } from 'jsr:@std/csv';
-import { z } from 'npm:zod';
+import { parse } from 'jsr:@std/csv@1.0.6';
+import { z } from 'npm:/zod@4.1.11';
 
-type Data = string[][];
+export type Data = string[][];
 
-type Value = string | number | boolean;
+export type Value = string | number | boolean;
 
-type Row = {
+export type Row = {
   header: string[];
   values: Value[];
 };
 
-type Column = {
+export type Column = {
   header: string;
   values: Value[];
 };
 
-type RowCol = Row | Column;
+export type RowCol = Row | Column;
 
 export async function getData(filename: string): Promise<Data> {
   const text = await Deno.readTextFile(filename);
@@ -51,7 +51,7 @@ export const columnByName =
     return res;
   };
 
-export const getRowByIndex =
+export const rowByIndex =
   (index: number) =>
   (rows: Row[]): Row => {
     const res = rows[index];
@@ -61,10 +61,12 @@ export const getRowByIndex =
     return res;
   };
 
-export const floats = z.transform(parseFloat);
-export const integers = z.transform((str: string) => parseInt(str, 10));
-export const booleans = z.transform(Boolean);
-export const strings = z.transform(String);
+export const floats: z.ZodTransform<number, string> = z.transform(parseFloat);
+export const integers: z.ZodTransform<number, string> = z.transform(
+  (str: string) => parseInt(str, 10)
+);
+export const booleans: z.ZodTransform<boolean, unknown> = z.transform(Boolean);
+export const strings: z.ZodTransform<string, string> = z.transform(String);
 
 export const transform =
   (schema: z.ZodTransform<any, any>) =>
@@ -75,7 +77,7 @@ export const transform =
     };
   };
 
-const choose = (data: RowCol) => {
+export const choose = (data: RowCol): RowCol => {
   return {
     ...data,
     values: data.values.filter(
@@ -84,7 +86,7 @@ const choose = (data: RowCol) => {
   };
 };
 
-const tap = (data: RowCol) => {
+export const tap = (data: RowCol): RowCol => {
   console.log(data);
   return data;
 };
@@ -92,24 +94,3 @@ const tap = (data: RowCol) => {
 export const values = (data: RowCol) => data.values;
 
 export const header = (data: RowCol) => data.header;
-
-await getData('data1.csv') //
-  .then(columns)
-  .then(columnByName('Test1'))
-  .then(transform(floats))
-  .then(choose)
-  .then(tap)
-  // .then(header)
-  .then(values)
-  .then(console.log);
-
-await getData('data1.csv') //
-  .then(rows)
-  .then(getRowByIndex(2))
-  // .then(tap)
-  .then(choose)
-  // .then(header)
-  .then(values)
-  .then(console.log);
-
-// console.log(d);
