@@ -3,8 +3,10 @@
   "specifiers": {
     "jsr:@std/bytes@^1.0.5": "1.0.6",
     "jsr:@std/csv@*": "1.0.6",
+    "jsr:@std/csv@1.0.6": "1.0.6",
     "jsr:@std/streams@^1.0.9": "1.0.9",
-    "npm:zod@*": "4.1.11"
+    "npm:zod@*": "4.1.11",
+    "npm:zod@4.1.11": "4.1.11"
   },
   "jsr": {
     "@std/bytes@1.0.6": {
